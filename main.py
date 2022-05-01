@@ -108,8 +108,8 @@ akulovD_M2_encoding = face_recognition.face_encodings(akulovD_M2)[0]
 #malevaniyA_M1 = face_recognition.load_image_file("DataSet Masks/17. Malevaniy Artem 3.jpeg")
 #malevaniyA_M1_encoding = face_recognition.face_encodings(malevaniyA_M1)[0]
 
-#malevaniyA_M2 = face_recognition.load_image_file("DataSet Masks/16. Malevaniy Artem 2.png")
-#malevaniyA_M2_encoding = face_recognition.face_encodings(malevaniyA_M2)[0]
+malevaniyA_M2 = face_recognition.load_image_file("DataSet Masks/16. Malevaniy Artem 2.jpeg")
+malevaniyA_M2_encoding = face_recognition.face_encodings(malevaniyA_M2)[0]
 
 sergeevaM_M1 = face_recognition.load_image_file("DataSet Masks/18. Sergeeva Maria 1.jpg")
 sergeevaM_M1_encoding = face_recognition.face_encodings(sergeevaM_M1)[0]
@@ -161,7 +161,7 @@ known_face_encodings = \
     akulovD_M1_encoding,
     akulovD_M2_encoding,
     #malevaniyA_M1_encoding,
-    #malevaniyA_M2_encoding,
+    malevaniyA_M2_encoding,
     sergeevaM_M1_encoding,
     sergeevaM_M2_encoding
     ]
@@ -209,7 +209,7 @@ known_face_names = \
     "Akulov D.",
     "Akulov D.",
     #"Malevaniy A.",
-    #"Malevaniy A.",
+    "Malevaniy A.",
     "Sergeeva M.",
     "Sergeeva M."
     ]
