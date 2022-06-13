@@ -4,6 +4,8 @@ import streamlit as st
 import numpy as np
 from PIL import Imagecat
 
+# update
+
 st.title("Распознавание лица")
 st.write("**Обученная нейросеть на основе библиотеки dlib**")
 st.sidebar.write("")
