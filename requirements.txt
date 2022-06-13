@@ -3,6 +3,4 @@ tensorflow-cpu
 face_recognition
 opencv-python
 numpy
-cmake
 dlib
-click
