@@ -2,5 +2,6 @@ streamlit
 face_recognition
 cmake
 dlib
-opencv-python
 numpy
+opencv-python
+import cv2
