@@ -4,4 +4,3 @@ cmake
 dlib
 numpy
 opencv-python
-import cv2
