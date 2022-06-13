@@ -1,0 +1,14 @@
+face_recognition
+cv2
+numpy
+dlib
+click
+os
+re
+multiprocessing
+sys
+itertools
+PIL.Image
+print_function
+streamlit
+tensorflow-cpu%
