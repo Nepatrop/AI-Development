@@ -1,3 +1,2 @@
 streamlit
-tensorflow-cpu
 face_recognition
