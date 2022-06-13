@@ -1,7 +1,3 @@
 streamlit
 tensorflow-cpu
 face_recognition
-cmake
-dlib
-opencv-python
-numpy
