@@ -11,4 +11,4 @@ itertools
 PIL.Image
 print_function
 streamlit
-tensorflow-cpu%
+tensorflow-cpu
