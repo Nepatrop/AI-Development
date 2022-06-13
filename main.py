@@ -2,7 +2,7 @@ import face_recognition
 import cv2
 import streamlit as st
 import numpy as np
-from PIL import Image
+from PIL import Imagecat
 
 st.title("Распознавание лица")
 st.write("**Обученная нейросеть на основе библиотеки dlib**")
