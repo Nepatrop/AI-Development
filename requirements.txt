@@ -5,3 +5,4 @@ dlib
 numpy
 opencv-python
 opencv-contrib-python-headless
+pillow
