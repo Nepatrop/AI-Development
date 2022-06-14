@@ -326,7 +326,7 @@ if choice == "С фотографии":
         if st.button("Process"):
             while True:
                 # Grab a single frame of video
-                frame = np.array(requirements.txtimage.convert('RGB'))
+                frame = np.array(image.convert('RGB'))
                 # Resize frame of video to 1/4 size for faster face recognition processing
                 # small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
