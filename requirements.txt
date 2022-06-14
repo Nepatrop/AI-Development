@@ -4,4 +4,4 @@ cmake
 dlib
 numpy
 pillow
-opencv-python
+opencv-contrib-python-headless
