@@ -4,4 +4,4 @@ cmake
 dlib
 numpy
 opencv-python
-opencv-contrib-python-headless
+opencv-contrib-python
