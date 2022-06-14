@@ -10,9 +10,17 @@ st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.write("Выберите метод распознавания лица:")
-st.sidebar.write("")
-activities = ["С фотографии", "В режиме реального времени"]
-choice = st.sidebar.selectbox("select an option", activities)
+instruction = "Инструкция"
+photoDetection = "С фотографии"
+liveCamDetection = "В режиме реального времени"
+activities = [instruction, photoDetection, liveCamDetection]
+choice = st.sidebar.selectbox("", activities)
+
+if choice == instruction:
+    st.write("На этой странице вы можете увидеть инструкцию по использованию нашего веб-приложения:")
+    st.write("В левой части окна вы можете выбрать один из двух методов распознавания лица: с фотографии и в режиме реального времени (в этом случае вам придется включить фронтальную камеру).")
+    st.write("В случае выбора распознавания по фотографии вам откроется панель, куда нужно загрузить файл в формате jpg, jpeg, png или webp. После чего просто дождаться, пока алгоритм закончит работу и выведет результат.")
+    st.write("В случае выбора распознавания в режиме реального времени появится окно, в которое будет выведено изображение с веб-камеры. Алгоритм определяет лица в зоне видимости камеры мгновенно.")
 
 video_capture = cv2.VideoCapture(0)
 
@@ -128,9 +136,9 @@ obabkovI_M3 = face_recognition.load_image_file(
     "DataSet Masks/11. Ilia Nikolaevich Obabkov 3.jpg")
 obabkovI_M3_encoding = face_recognition.face_encodings(obabkovI_M3)[0]
 
-# shadrinD_M1 = face_recognition.load_image_file(
-#     "DataSet Masks/12. Denis Borisovich Shadrin  1.jpg")
-# shadrinD_M1_encoding = face_recognition.face_encodings(shadrinD_M1)[0]
+shadrinD_M1 = face_recognition.load_image_file(
+    "DataSet Masks/12. Denis Borisovich Shadrin  1.jpg")
+shadrinD_M1_encoding = face_recognition.face_encodings(shadrinD_M1)[0]
 
 akulovD_M1 = face_recognition.load_image_file(
     "DataSet Masks/13. Akulov Danila 1.jpg")
@@ -193,7 +201,7 @@ known_face_encodings = \
         obabkovI_M1_encoding,
         obabkovI_M2_encoding,
         obabkovI_M3_encoding,
-        # shadrinD_M1_encoding,
+        shadrinD_M1_encoding,
 
         akulovD_M1_encoding,
         akulovD_M2_encoding,
@@ -241,12 +249,12 @@ known_face_names = \
         "Obabkov I. N.",
         "Obabkov I. N.",
         "Obabkov I. N.",
-        # "Shadrin D. B.",
+        "Shadrin D. B.",
 
         "Akulov D.",
         "Akulov D.",
         # "Malevannyi A.",
-        # "Malevannyi A.",
+        "Malevannyi A.",
         "Sergeeva M.",
         "Sergeeva M."
     ]
@@ -258,7 +266,7 @@ process_this_frame = True
 
 FRAME_WINDOW = st.image([])
 
-if choice == "В режиме реального времени":
+if choice == liveCamDetection:
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
@@ -314,70 +322,68 @@ if choice == "В режиме реального времени":
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-if choice == "С фотографии":
+if choice == photoDetection:
 
     image_file = st.file_uploader(
         "Загрузите фотографию", type=['jpeg', 'png', 'jpg', 'webp'])
 
     if image_file:
-
         image = Image.open(image_file)
 
-        if st.button("Process"):
-            while True:
-                # Grab a single frame of video
-                frame = np.array(image.convert('RGB'))
-                # Resize frame of video to 1/4 size for faster face recognition processing
-                # small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+        while True:
+            # Grab a single frame of video
+            frame = np.array(image.convert('RGB'))
+            # Resize frame of video to 1/4 size for faster face recognition processing
+            small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-                # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-                # rgb_small_frame = small_frame[:, :, ::-1]
+            # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+            rgb_small_frame = small_frame[:, :, ::-1]
 
-                # Only process every other frame of video to save time
-                # if process_this_frame:
-                    # Find all the faces and face encodings in the current frame of video
-                face_locations = face_recognition.face_locations(frame)
-                face_encodings = face_recognition.face_encodings(frame, face_locations)
+            # Only process every other frame of video to save time
+            # if process_this_frame:
+                # Find all the faces and face encodings in the current frame of video
+            face_locations = face_recognition.face_locations(rgb_small_frame)
+            face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-                face_names = []
-                for face_encoding in face_encodings:
-                    # See if the face is a match for the known face(s)
-                    matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                    name = "Unknown"
+            face_names = []
+            for face_encoding in face_encodings:
+                # See if the face is a match for the known face(s)
+                matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+                name = "Unknown"
 
-                    face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
-                    best_match_index = np.argmin(face_distances)
-                    if matches[best_match_index]:
-                        name = known_face_names[best_match_index]
+                face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+                best_match_index = np.argmin(face_distances)
+                if matches[best_match_index]:
+                    name = known_face_names[best_match_index]
 
-                    face_names.append(name)
+                face_names.append(name)
 
-                #process_this_frame = not process_this_frame
+            #process_this_frame = not process_this_frame
 
-                # Display the results
-                for (top, right, bottom, left), name in zip(face_locations, face_names):
-                    # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-                    top *= 4
-                    right *= 4
-                    bottom *= 4
-                    left *= 4
+            # Display the results
+            for (top, right, bottom, left), name in zip(face_locations, face_names):
+                # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+                top *= 4
+                right *= 4
+                bottom *= 4
+                left *= 4
 
-                    # Draw a box around the face
-                    cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+                # Draw a box around the face
+                cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-                    # Draw a label with a name below the face
-                    cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-                    font = cv2.FONT_HERSHEY_DUPLEX
-                    cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+                # Draw a label with a name below the face
+                cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+                font = cv2.FONT_HERSHEY_DUPLEX
+                cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
-                # Display the resulting image
-                # cv2.imshow('Video', frame)
-                FRAME_WINDOW.image(frame)
+            # Display the resulting image
+            # cv2.imshow('Video', frame)
+            FRAME_WINDOW.image(frame)
 
 
-                # Hit 'q' on the keyboard to quit!
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+            # Hit 'q' on the keyboard to quit!
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
 # Release handle to the webcam
 video_capture.release()
