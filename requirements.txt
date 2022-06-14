@@ -3,5 +3,5 @@ face_recognition
 cmake
 dlib
 numpy
-opencv-contirb-python
+opencv-python-headless
 pillow
