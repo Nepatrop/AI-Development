@@ -26,7 +26,7 @@ video_capture = cv2.VideoCapture(0)
 
 # DataSet Faces photos
 obabkov_F1 = face_recognition.load_image_file(
-    "DataSet Faces/9. Ilia Nikolaevich Obabkov 1.png")
+    "DataSet Masks/9. Ilia Nikolaevich Obabkov 1.jpg")
 obabkov_F1_encoding = face_recognition.face_encodings(obabkov_F1)[0]
 
 # Create arrays of known face encodings and their names
