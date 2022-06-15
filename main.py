@@ -382,8 +382,8 @@ if choice == photoDetection:
 
 
             # Hit 'q' on the keyboard to quit!
-            ## if cv2.waitKey(1) & 0xFF == ord('q'):
-                ## break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
 # Release handle to the webcam
 video_capture.release()
