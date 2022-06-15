@@ -388,4 +388,4 @@ if choice == photoDetection:
 # Release handle to the webcam
 video_capture.release()
 # noinspection PyUnresolvedReferences
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
