@@ -45,7 +45,7 @@ known_face_names = \
     [
         # Faces names Encoding arr
         "Obabkov I. N.",
-        "Murk"
+        "Murk <3"
     ]
 
 
