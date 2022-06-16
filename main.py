@@ -114,6 +114,10 @@ if choice == liveCamDetection:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+            # Release handle to the webcam
+            video_capture.release()
+            # noinspection PyUnresolvedReferences
+
 
 
 if choice == photoDetection:
@@ -173,7 +177,3 @@ if choice == photoDetection:
             # Display the resulting image
             # cv2.imshow('Video', frame)
             FRAME_WINDOW.image(frame)
-
-            # Release handle to the webcam
-            video_capture.release()
-            # noinspection PyUnresolvedReferences
