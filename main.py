@@ -22,7 +22,7 @@ if choice == instruction:
     st.write("В случае выбора распознавания по фотографии вам откроется панель, куда нужно загрузить файл в формате jpg, jpeg, png или webp. После чего просто дождаться, пока алгоритм закончит работу и выведет результат.")
     st.write("В случае выбора распознавания в режиме реального времени появится окно, в которое будет выведено изображение с веб-камеры. Алгоритм определяет лица в зоне видимости камеры мгновенно.")
 
-video_capture = cv2.VideoCapture(0)
+
 
 # DataSet Faces photos
 obabkov_F1 = face_recognition.load_image_file(
@@ -42,14 +42,23 @@ known_face_names = \
         "Obabkov I. N."
     ]
 
+
+
 face_locations = []
 face_encodings = []
 face_names = []
 process_this_frame = True
 
+
+
 FRAME_WINDOW = st.image([])
 
+
+
 if choice == liveCamDetection:
+
+    video_capture = cv2.VideoCapture(0)
+
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
@@ -104,6 +113,13 @@ if choice == liveCamDetection:
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+# Release handle to the webcam
+video_capture.release()
+# noinspection PyUnresolvedReferences
+cv2. destroyAllWindows()
+
+
 
 if choice == photoDetection:
 
@@ -162,7 +178,3 @@ if choice == photoDetection:
             # Display the resulting image
             # cv2.imshow('Video', frame)
             FRAME_WINDOW.image(frame)
-
-# Release handle to the webcam
-video_capture.release()
-# noinspection PyUnresolvedReferences
