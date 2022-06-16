@@ -29,17 +29,23 @@ obabkov_F1 = face_recognition.load_image_file(
     "DataSet Masks/9. Ilia Nikolaevich Obabkov 1.jpg")
 obabkov_F1_encoding = face_recognition.face_encodings(obabkov_F1)[0]
 
+akulov_F1 = face_recognition.load_image_file(
+    "DataSet Faces/14. Akulov Danila 2.jpg")
+akulov_F1_encoding = face_recognition.face_encodings(akulov_F1)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = \
     [
         # Faces Encoding arr
-        obabkov_F1_encoding
+        obabkov_F1_encoding,
+        akulov_F1_encoding
     ]
 
 known_face_names = \
     [
         # Faces names Encoding arr
-        "Obabkov I. N."
+        "Obabkov I. N.",
+        "Murk"
     ]
 
 
