@@ -163,12 +163,6 @@ if choice == photoDetection:
             # cv2.imshow('Video', frame)
             FRAME_WINDOW.image(frame)
 
-
-            # Hit 'q' on the keyboard to quit!
-            #//if cv2.waitKey(1) & 0xFF == ord('q'):
-                #//break
-
 # Release handle to the webcam
 video_capture.release()
 # noinspection PyUnresolvedReferences
-#//cv2.destroyAllWindows()
