@@ -61,7 +61,7 @@ FRAME_WINDOW = st.image([])
 
 
 if choice == liveCamDetection:
-    video_capture = cv2.VideoCapture(CAP_V4L2)
+    video_capture = cv2.VideoCapture(0)
     successCheck = True
     errorCheck = True
     while True:
