@@ -69,7 +69,7 @@ if choice == liveCamDetection:
         ret, frame = video_capture.read()
 
         # Resize frame of video to 1/4 size for faster face recognition processing
-        small_frame = frame.thumbnail((400, 400))
+        small_frame = frame.resize(400, 400)
 
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         rgb_small_frame = small_frame[:, :, ::-1]
