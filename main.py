@@ -1,11 +1,11 @@
 import face_recognition
+import cv2
 import streamlit as st
 import numpy as np
 from PIL import Image
-import cv2
 
-st.title("Распознавание лица")
-st.write("**Обученная нейросеть на основе библиотеки dlib**")
+st.title("AI FACE RECOGNIZER")
+st.write("**Обученная нейросеть на основе библиотеки dlib, способная распознавать лица людей в медицинской маске и без**")
 st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.write("")
@@ -21,6 +21,11 @@ if choice == instruction:
     st.write("В левой части окна вы можете выбрать один из двух методов распознавания лица: с фотографии и в режиме реального времени (в этом случае вам придется включить фронтальную камеру).")
     st.write("В случае выбора распознавания по фотографии вам откроется панель, куда нужно загрузить файл в формате jpg, jpeg, png или webp. После чего просто дождаться, пока алгоритм закончит работу и выведет результат.")
     st.write("В случае выбора распознавания в режиме реального времени появится окно, в которое будет выведено изображение с веб-камеры. Алгоритм определяет лица в зоне видимости камеры мгновенно.")
+    st.write("Поскольку данный алгоритм используется для контроля доступа (к устройству, системе, для входа куда-либо), то при удачной попытке распознавания лица вам будет разрешен доступ к абсрактной системе. В противном случае в доступе будет отказано.")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.caption("**Сделано командой AI CREATORS**")
 
 
 
@@ -56,19 +61,15 @@ FRAME_WINDOW = st.image([])
 
 
 if choice == liveCamDetection:
-
     video_capture = cv2.VideoCapture(0)
-
+    successCheck = True
+    errorCheck = True
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
 
         # Resize frame of video to 1/4 size for faster face recognition processing
-        scale_percent = 25
-        width = int(frame * scale_percent / 100)
-        height = int(frame * scale_percent / 100)
-        dim = (width, height)
-        small_frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
+        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         rgb_small_frame = small_frame[:, :, ::-1]
@@ -92,6 +93,12 @@ if choice == liveCamDetection:
 
                 face_names.append(name)
 
+                if name != "Unknown" and successCheck:
+                    st.success("Доступ к системе разрешен")
+                    successCheck = False
+                elif name == "Unknown" and errorCheck:
+                    st.error("В доступе отказано")
+                    errorCheck = False
         process_this_frame = not process_this_frame
 
         # Display the results
@@ -111,16 +118,9 @@ if choice == liveCamDetection:
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
         # Display the resulting image
-        cv2.imshow('Video', frame)
         FRAME_WINDOW.image(frame)
-
-        # Hit 'q' on the keyboard to quit!
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-            # Release handle to the webcam
-            video_capture.release()
-            # noinspection PyUnresolvedReferences
+    # Release handle to the webcam
+    video_capture.release()
 
 
 
@@ -131,7 +131,8 @@ if choice == photoDetection:
 
     if image_file:
         image = Image.open(image_file)
-
+        successCheck = True
+        errorCheck = True
         while True:
             # Grab a single frame of video
             frame = np.array(image.convert('RGB'))
@@ -160,6 +161,13 @@ if choice == photoDetection:
 
                 face_names.append(name)
 
+                if name != "Unknown" and successCheck:
+                    st.success("Доступ к системе разрешен")
+                    successCheck = False
+                elif name == "Unknown" and errorCheck:
+                    st.error("В доступе отказано")
+                    errorCheck = False
+
             #process_this_frame = not process_this_frame
 
             # Display the results
@@ -179,5 +187,4 @@ if choice == photoDetection:
                 cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
             # Display the resulting image
-            # cv2.imshow('Video', frame)
             FRAME_WINDOW.image(frame)
