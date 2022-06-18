@@ -57,13 +57,13 @@ akulovD_M1 = face_recognition.load_image_file(
      "DataSet Masks/14. Akulov Danila 2.jpg")
 akulovD_M1_encoding = face_recognition.face_encodings(akulovD_M1)[0]
 
-sergeevaM_F1 = face_recognition.load_image_file(
-    "DataSet Faces/18. Sergeeva Maria 1.jpg")
-sergeevaM_F1_encoding = face_recognition.face_encodings(sergeevaM_F1)[0]
+samarinM_F1 = face_recognition.load_image_file(
+     "DataSet Faces/20. Samarin M. P. 1.png")
+samarinM_F1_encoding = face_recognition.face_encodings(samarinM_F1)[0]
 
-sergeevaM_M1 = face_recognition.load_image_file(
-     "DataSet Masks/18. Sergeeva Maria 1.jpg")
-sergeevaM_M1_encoding = face_recognition.face_encodings(sergeevaM_M1)[0]
+samarinM_M1 = face_recognition.load_image_file(
+     "DataSet Masks/21. Samarin M. P. 2.jpg")
+samarinM_M1_encoding = face_recognition.face_encodings(samarinM_M1)[0]
 
 known_face_encodings = \
     [
@@ -74,8 +74,8 @@ known_face_encodings = \
         malevaniyA_M1_encoding,
         akulovD_F1_encoding,
         akulovD_M1_encoding,
-        sergeevaM_M1_encoding,
-        sergeevaM_F1_encoding
+        samarinM_F1_encoding,
+        samarinM_M1_encoding
     ]
 
 known_face_names = \
@@ -87,8 +87,8 @@ known_face_names = \
         "Malevaniy A. K.",
         "Akulov D. A.",
         "Akulov D. A.",
-        "Sergeeva M.",
-        "Sergeeva M."
+        "Samarin M. P.",
+        "Samarin M. P.",
     ]
 
 face_locations = []
