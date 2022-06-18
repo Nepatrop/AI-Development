@@ -57,6 +57,10 @@ akulovD_M1 = face_recognition.load_image_file(
      "DataSet Masks/14. Akulov Danila 2.jpg")
 akulovD_M1_encoding = face_recognition.face_encodings(akulovD_M1)[0]
 
+akulovD_M2 = face_recognition.load_image_file(
+     "DataSet Masks/13. Akulov Danila 1.jpg")
+akulovD_M2_encoding = face_recognition.face_encodings(akulovD_M2)[0]
+
 samarinM_F1 = face_recognition.load_image_file(
      "DataSet Faces/20. Samarin M. P. 1.png")
 samarinM_F1_encoding = face_recognition.face_encodings(samarinM_F1)[0]
@@ -74,6 +78,7 @@ known_face_encodings = \
         malevaniyA_M1_encoding,
         akulovD_F1_encoding,
         akulovD_M1_encoding,
+        akulovD_M2_encoding,
         samarinM_F1_encoding,
         samarinM_M1_encoding
     ]
@@ -85,6 +90,7 @@ known_face_names = \
         "Shadrin D. B.",
         "Malevaniy A. K.",
         "Malevaniy A. K.",
+        "Akulov D. A.",
         "Akulov D. A.",
         "Akulov D. A.",
         "Samarin M. P.",
